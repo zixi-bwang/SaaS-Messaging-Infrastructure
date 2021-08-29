@@ -39,7 +39,7 @@ namespace web_starter.Extensions.ErrorHandling
 
             if (context.Exception is ClientApiException clientApiException)
             {
-                statusCode = 
+                statusCode = (int)clientApiException.ExceptionHttpStatusCode;
             }
 
             _logger.LogError(context.Exception, message);
@@ -47,6 +47,12 @@ namespace web_starter.Extensions.ErrorHandling
             ErrorResponse response;
 
             //skip sql error
+            if (context.Exception is SqlException)
+                response = new ErrorResponse("SqlException", "check log");
+            else if (context.Exception.Message.Contains("LINQ expression"))
+                response = new ErrorResponse("SqlException", "check log");
+            else
+                response = new ErrorResponse("SystemException", message);
 
             context.HttpContext.Response.StatusCode = statusCode;
             context.Result = new ObjectResult(response);
