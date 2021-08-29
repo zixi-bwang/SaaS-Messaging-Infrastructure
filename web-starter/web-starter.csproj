@@ -10,8 +10,6 @@
     <None Remove="Formatter\" />
     <None Remove="Extensions\" />
     <None Remove="Extensions\ErrorHandling\" />
-    <None Remove="Utilities\" />
-    <None Remove="Utilities\Exceptions\" />
     <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -26,8 +24,11 @@
     <Folder Include="Formatter\" />
     <Folder Include="Extensions\" />
     <Folder Include="Extensions\ErrorHandling\" />
-    <Folder Include="Utilities\" />
-    <Folder Include="Utilities\Exceptions\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\infrastructure\infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

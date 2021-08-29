@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace web_starter.Formatter
+namespace infrastructure.Formatter
 {
     public class TextPlainInputFormatter : InputFormatter
     {

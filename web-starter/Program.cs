@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Formatting.Compact;
 
-namespace web_starter
+namespace infrastructure
 {
     public class Program
     {

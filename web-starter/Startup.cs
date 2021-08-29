@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using web_starter.Formatter;
+using infrastructure.Formatter;
 
-namespace web_starter
+namespace infrastructure
 {
     public class Startup
     {

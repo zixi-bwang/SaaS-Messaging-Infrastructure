@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using web_starter.Utilities;
-using web_starter.Utilities.Exceptions;
-using web_starter.Services;
+using infrastructure.Utilities;
+using infrastructure.Utilities.Exceptions;
+using infrastructure.Services;
 
 namespace web_starter.Extensions.ErrorHandling
 {
