@@ -1,0 +1,37 @@
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace web_starter.Formatter
+{
+    public class TextPlainInputFormatter : InputFormatter
+    {
+        private const string ContentType = "text/plain";
+
+        public TextPlainInputFormatter()
+        {
+            SupportedMediaTypes.Add(ContentType);
+        }
+
+        public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
+        {
+            var request = context.HttpContext.Request;
+            using (var reader = new StreamReader(request.Body))
+            {
+                var content = await reader.ReadToEndAsync();
+                return await InputFormatterResult.SuccessAsync(content);
+            }
+        }
+
+        public override bool CanRead(InputFormatterContext context)
+        {
+            if (context.HttpContext.Request.ContentType == null)
+                return false;
+
+            var contentType = context.HttpContext.Request.ContentType;
+
+            return contentType.StartsWith(ContentType);
+        }
+    }
+}
