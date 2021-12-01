@@ -30,7 +30,7 @@ namespace Repository.Tables.EventQueue
         [StringLength(256)]
         public string StatusMessage { get; set; }
         [Required]
-        public Guid VendorId { get; set; }
+        public Guid OrderId { get; set; }
         [StringLength(32)]
         public string Label { get; set; }
         public byte NumOfExecution { get; set; }

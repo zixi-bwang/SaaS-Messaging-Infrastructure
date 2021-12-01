@@ -16,7 +16,7 @@ namespace ContentFoundation.CommandQueue.Managers
                 NullValueHandling = NullValueHandling.Ignore
             });*/
             var hash = Utilities.Util.MD5(model.Content);
-            /*var command = _dc.CommandQueue.FirstOrDefault(x => x.VendorId == model.VendorId 
+            /*var command = _dc.CommandQueue.FirstOrDefault(x => x.OrderId == model.OrderId 
                 && x.ContentHash == hash
                 && x.StatusTermId == BuiltInCommandQueueStatus.Enqueued);
             if (command != null)
@@ -30,7 +30,7 @@ namespace ContentFoundation.CommandQueue.Managers
                 Processor = model.Processor,
                 StatusTermId = BuiltInCommandQueueStatus.Enqueued,
                 Subject = model.Subject,
-                VendorId = model.VendorId,
+                OrderId = model.OrderId,
                 WorkOrderId = model.WorkOrderId
             };
 

@@ -20,9 +20,9 @@ namespace ContentFoundation.EventWebHook
     public class CommandQueueController : RootController
     {
         private readonly CommandQueueManager commandQueueMgr;
-        private readonly VendorDbContext _dc;
+        private readonly OrderDbContext _dc;
 
-        public CommandQueueController(CommandQueueManager commandQueueMgr, VendorDbContext dc)
+        public CommandQueueController(CommandQueueManager commandQueueMgr, OrderDbContext dc)
         {
             this.commandQueueMgr = commandQueueMgr;
             _dc = dc;
@@ -64,7 +64,7 @@ namespace ContentFoundation.EventWebHook
             var commands = commandQueueMgr.Dequeue(count, BuiltInCommandQueueStatus.Enqueued);
             foreach(var command in commands)
             {
-                _dc.Transaction<IVendorTable>(() => commandQueueMgr.Proceed(command.Id));
+                _dc.Transaction<IOrderTable>(() => commandQueueMgr.Proceed(command.Id));
             }
         }
 
@@ -74,7 +74,7 @@ namespace ContentFoundation.EventWebHook
             var commands = commandQueueMgr.Dequeue(count, BuiltInCommandQueueStatus.Failed);
             foreach (var command in commands)  
             {
-                _dc.Transaction<IVendorTable>(() => commandQueueMgr.Proceed(command.Id));
+                _dc.Transaction<IOrderTable>(() => commandQueueMgr.Proceed(command.Id));
             }
         }
 

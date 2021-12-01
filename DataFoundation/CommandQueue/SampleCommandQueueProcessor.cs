@@ -2,8 +2,11 @@
 using ContentFoundation.Events;
 using Decoupling.EventBrokers;
 using Newtonsoft.Json;
+using Repository;
 using Repository.Enums;
+using Repository.Tables;
 using Repository.Tables.EventQueue;
+using Repository.Tables.Order;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,9 +16,9 @@ namespace ContentFoundation.CommandQueue
     public class SampleCommandQueueProcessor : ICommandQueueProcessor
     {
         private readonly EventBroker _eventBroker;
-        private readonly DbContext _dc;
+        private readonly MessageDbContext _dc;
 
-        public SampleCommandQueueProcessor(DbContext dc,
+        public SampleCommandQueueProcessor(MessageDbContext dc,
             EventBroker eventBroker)
         {
             _eventBroker = eventBroker;
@@ -41,13 +44,9 @@ namespace ContentFoundation.CommandQueue
             var eventData = JsonConvert.DeserializeObject<object>(output);
 
             Serilog.Log.Debug("Your real business logic goes here...");
-            _dc.Transaction<IVendorTable>(delegate
+            _dc.Transaction<IOrderTable>(delegate
             {
                 var invoice = _invoiceMgr.GetInvoice(new InvoiceQueryModel { WorkOrderId = eventData.WoModel.Id });
-                // TODO: FIXT-3586 remove below two lines when client implement new submit invoice API
-                //invoice.InvoiceNumber = clientInvoice.InvoiceNumber;
-                //_dc.SaveChanges();
-
                 var invoiceRef = new AppInvoiceRefIdRecord
                 {
                     InvoiceId = invoice.Id,

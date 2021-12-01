@@ -19,7 +19,7 @@ namespace ContentFoundation.EventWebHook
 {
     public class CommandQueueModule : ModuleBase, IModule
     {
-        VendorDbContext dc;
+        OrderDbContext dc;
 
         public void RegisterDI(IServiceCollection services, IConfiguration config)
         {
@@ -30,12 +30,12 @@ namespace ContentFoundation.EventWebHook
 
         public void SetupDb()
         {
-            dc = GetService<VendorDbContext>();
+            dc = GetService<OrderDbContext>();
 
             if (dc.Taxonomies.Find(BuiltInTaxonomy.CommandQueueStatus) != null)
                 return;
 
-            dc.Transaction<IVendorTable>(delegate
+            dc.Transaction<IOrderTable>(delegate
             {
                 AddCommandQueueStatus();
                 AddCommandQueueUser();
@@ -85,8 +85,8 @@ namespace ContentFoundation.EventWebHook
                 Id = BuiltInUser.CommandQueue,
                 UserName = "commandqueue",
                 ContactId = fieldContactId,
-                VendorId = BuiltInVendor.SystemReserved,
-                AppTermId = BuiltInAppType.FixtVendorSaaS
+                OrderId = BuiltInOrder.SystemReserved,
+                AppTermId = BuiltInAppType.FixtOrderSaaS
             };
 
             dc.Users.Add(userRecord);

@@ -42,7 +42,7 @@ namespace ContentFoundation.CommandQueue.Managers
             return records.Select(x => new CommandQueueModel
             {
                 Id = x.Id,
-                VendorId = x.VendorId,
+                OrderId = x.OrderId,
                 StatusTermId = x.StatusTermId,
                 Subject = x.Subject,
                 Label = x.Label,

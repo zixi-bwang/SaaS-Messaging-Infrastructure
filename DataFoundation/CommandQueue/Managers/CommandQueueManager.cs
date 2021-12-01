@@ -8,12 +8,12 @@ namespace ContentFoundation.CommandQueue.Managers
 {
     public partial class CommandQueueManager : IEventHandler<CommandQueueEnqueueEvent, Guid>
     {
-        VendorDbContext _dc;
+        OrderDbContext _dc;
         ICurrentUser _currentUser;
 
         static byte MAX_RETRY_TIMES = 3;
 
-        public CommandQueueManager(VendorDbContext dc,
+        public CommandQueueManager(OrderDbContext dc,
             ICurrentUser user)
         {
             _dc = dc;
